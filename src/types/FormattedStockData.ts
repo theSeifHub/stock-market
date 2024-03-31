@@ -1,0 +1,1 @@
+export type EChartFormattedDataItem = [string, number, number, number, number];

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LiveCandleStickChart from './components/LiveCandleStickChart';
 import SearchFilterBox from './components/SearchFilterBox';
 import { TimeSeriesIntervals } from './types/TimeSeriesEnums';
 
@@ -14,6 +15,7 @@ function App() {
         timeInterval={timeInterval}
         onSelectTimeInterval={(val) => setTimeInterval(val)}
       />
+      <LiveCandleStickChart stockSymbol={stockSymbol} seriesInterval={timeInterval} />
     </div>
   );
 }
