@@ -22,7 +22,6 @@ export interface AdjustedTimeSeriesData {
 
 export interface GetStockDataResponse {
   "Meta Data": MetaData;
-  [TimeSeriesDataKeys.DAILY_ADJUSTED]: AdjustedTimeSeriesData;
   [TimeSeriesDataKeys.WEEKLY_ADJUSTED]: AdjustedTimeSeriesData;
   [TimeSeriesDataKeys.MONTHLY_ADJUSTED]: AdjustedTimeSeriesData;
 }

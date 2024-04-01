@@ -4,7 +4,7 @@ import { EChartFormattedDataItem } from '../types/FormattedStockData';
 const bgColor = '#cccccc'
 
 
-export const getEchartsOptions = (
+export const getEChartsOption = (
   title: string,
   data: EChartFormattedDataItem[],
   symbol: string,

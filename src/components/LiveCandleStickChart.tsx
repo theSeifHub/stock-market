@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import * as echarts from 'echarts/core';
 import ReactECharts from 'echarts-for-react';
-import { CandlestickChart, BarChart } from 'echarts/charts';
+import { CandlestickChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import {
   GridComponent,
@@ -13,17 +13,14 @@ import {
   DataZoomSliderComponent,
   DatasetComponent,
 } from 'echarts/components';
-import getStockData from '../utils/requests/getStockData';
 import { AdjustedTimeSeriesData } from '../types/GetStockDataResponse';
 import formatStockIntoSeriesData from '../utils/formatStockIntoSeriesData';
 import { EChartFormattedDataItem } from '../types/FormattedStockData';
-import { getEchartsOptions as getEChartsOption } from '../utils/getEChartsOption';
-import { TimeSeriesIntervals, TimeSeriesDataKeys } from '../types/TimeSeriesEnums';
+import { getEChartsOption } from '../utils/getEChartsOption';
 
 // Register the required components
 echarts.use([
   CandlestickChart,
-  BarChart,
   TitleComponent,
   TooltipComponent,
   AxisPointerComponent,
@@ -37,42 +34,13 @@ echarts.use([
 
 type Props = {
   stockSymbol: string;
-  seriesInterval: TimeSeriesIntervals;
+  stockData: AdjustedTimeSeriesData;
+  noDataMsg: string;
 };
 
-export default function LiveCandleStickChart({stockSymbol, seriesInterval}: Props) {
-  const [stockData, setStockData] = useState<AdjustedTimeSeriesData>({});
-
-  useEffect(() => {
-    if (stockSymbol) {
-      getStockData(stockSymbol, seriesInterval)
-      .then((res) => {
-        let dataKey: TimeSeriesDataKeys;
-        switch (seriesInterval) {
-          case TimeSeriesIntervals.DAILY_ADJUSTED:
-            dataKey = TimeSeriesDataKeys.DAILY_ADJUSTED;
-            break;
-          case TimeSeriesIntervals.WEEKLY_ADJUSTED:
-            dataKey = TimeSeriesDataKeys.WEEKLY_ADJUSTED;
-            break;
-          case TimeSeriesIntervals.MONTHLY_ADJUSTED:
-            dataKey = TimeSeriesDataKeys.WEEKLY_ADJUSTED;
-            break;
-          default:
-            dataKey = TimeSeriesDataKeys.WEEKLY_ADJUSTED;
-        }
-        setStockData(res[dataKey])
-      })
-      .catch((e) => console.error(e))
-      .finally(() => console.log("Stocks >> ", stockData));
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stockSymbol]);
-
-  
+export default function LiveCandleStickChart({stockSymbol, stockData, noDataMsg}: Props) {
   const seriesData: EChartFormattedDataItem[] = useMemo(() => formatStockIntoSeriesData(stockData), [stockData]);
 
-  
   return (
     <div className='p-4 border-2 border-slate-400 rounded-lg h-[550px]'>
       {seriesData.length > 0 ? (
@@ -85,7 +53,7 @@ export default function LiveCandleStickChart({stockSymbol, seriesInterval}: Prop
         />
       ) : (
         <h2 className='w-fit m-auto mt-32 text-2xl font-semibold text-slate-800 border-b-4 border-b-slate-400 p-4'>
-          Enter a stock symbol to display data.
+          {noDataMsg}
         </h2>
       )}
     </div>
