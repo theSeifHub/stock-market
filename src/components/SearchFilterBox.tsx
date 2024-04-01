@@ -7,7 +7,7 @@ type Props = {
   onSelectTimeInterval: (value: TimeSeriesIntervals) => void;
 }
 
-export default function SearchFilterBox({ onClickSearch: onSelectSymbol, timeInterval, onSelectTimeInterval }: Props) {
+export default function SearchFilterBox({ onClickSearch, timeInterval, onSelectTimeInterval }: Props) {
   const [searchKeyword, setSearchKeywords] = useState<string>("");
 
   return (
@@ -64,7 +64,7 @@ export default function SearchFilterBox({ onClickSearch: onSelectSymbol, timeInt
         type="button"
         onClick={(e) => {
           e.preventDefault();
-          onSelectSymbol(searchKeyword);
+          onClickSearch(searchKeyword);
         }}
       >
         Search

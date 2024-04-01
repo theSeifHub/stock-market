@@ -42,7 +42,7 @@ function App() {
       .finally(() => setSearchNow(false));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchNow]);
+  }, [searchNow, stockSymbol]);
   return (
     <div className="w-full min-h-screen flex flex-col gap-4 py-2 px-4 md:px-32 bg-slate-300">
       <h1 className="font-mono font-bold text-slate-800 text-3xl text-center">Stock Market</h1>
