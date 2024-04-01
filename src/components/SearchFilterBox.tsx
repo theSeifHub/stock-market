@@ -55,7 +55,14 @@ export default function SearchFilterBox({ onClickSearch, timeInterval, onSelectT
         </div>
 
         <p className="text-sm absolute top-14 left-2">
-          Check available stock symbols <a className="text-slate-700 hover:underline" href="https://stockanalysis.com/stocks/">here</a>
+          Check available stock symbols&nbsp;
+          <a
+            className="text-slate-700 hover:underline"
+            href="https://stockanalysis.com/stocks/"
+            target="_blank" rel="noopener noreferrer"
+          >
+            here
+          </a>
         </p>
       </div>
 
